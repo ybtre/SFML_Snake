@@ -1,7 +1,8 @@
 #include "Snake.h"
 
-Snake::Snake(int l_blockSize) {
+Snake::Snake(int l_blockSize, Textbox* l_log) {
 	m_size = l_blockSize;
+	m_log = l_log;
 
 	m_bodyRect.setSize(sf::Vector2f(m_size - 1, m_size - 1));
 	Reset();
@@ -21,6 +22,7 @@ int Snake::GetScore() { return m_score; }
 
 void Snake::IncreaseScore() {
 	m_score += 10;
+	m_log->Add("You ate an apple. Score: " + std::to_string((long long)m_score));
 }
 
 bool Snake::HasLost() { return m_lost; }
@@ -155,8 +157,10 @@ void Snake::Cut(int l_segments) {
 	for (int i = 0; i < l_segments; ++i) {
 		m_snakeBody.pop_back();
 	}
+
 	--m_lives;
 	if (!m_lives) { Lose(); return; }
+	m_log->Add("You lost a life! Lives Left: " + std::to_string((long long)m_lives));
 }
 
 void Snake::Render(sf::RenderWindow& l_window) {

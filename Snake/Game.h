@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "World.h"
 #include "Snake.h"
+#include "Textbox.h"
 
 class Game {
 public:
@@ -15,6 +16,7 @@ public:
 	sf::Time GetElapsed();
 	void RestartClock();
 
+	Textbox m_textbox;
 	Window* GetWindow();
 private:
 	Window m_window;
